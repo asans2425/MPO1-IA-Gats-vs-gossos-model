@@ -1,5 +1,8 @@
+# 📁 app.py – STREAMLIT
+# ✅ Versió final per carregar model optimitzat (JSON + WEIGHTS)
+
 import streamlit as st
-from tensorflow.keras.models import load_model
+from tensorflow.keras.models import model_from_json
 from PIL import Image
 import numpy as np
 
@@ -13,10 +16,20 @@ if uploaded_file:
     image = Image.open(uploaded_file).resize((150, 150))
     st.image(image, caption='📷 Imatge pujada', use_container_width=True)
 
-    model = load_model('model_gats_gossos.h5')
+    # Carregar arquitectura
+    with open("model_gats_gossos.json", "r") as json_file:
+        model_json = json_file.read()
+
+    model = model_from_json(model_json)
+
+    # Carregar pesos
+    model.load_weights("model_gats_gossos.weights.h5")
+
+    # Preprocessar imatge
     img_array = np.array(image) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
 
+    # Predicció
     prediction = model.predict(img_array)
     prob = float(prediction[0])
 
