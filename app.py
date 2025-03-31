@@ -11,7 +11,7 @@ uploaded_file = st.file_uploader("📤 Pujar imatge (jpg, png)", type=["jpg", "j
 
 if uploaded_file:
     image = Image.open(uploaded_file).resize((150, 150))
-    st.image(image, caption='📷 Imatge pujada', use_column_width=True)
+    st.image(image, caption='📷 Imatge pujada', use_container_width=True)
 
     model = load_model('model_gats_gossos.h5')
     img_array = np.array(image) / 255.0
