@@ -26,7 +26,7 @@ else:
 
     if uploaded_file:
         try:
-            image = Image.open(uploaded_file).convert("RGB").resize((150, 150))
+            image = Image.open(uploaded_file).convert("RGB").resize((100, 100))
             st.image(image, caption='📷 Imatge pujada', use_container_width=True)
 
             # Preprocessar imatge
